@@ -7,13 +7,13 @@
 #
 
 #SSLPATH=/usr/local/ssl
-OSSLPATH=/usr
+OSSLPATH?=/usr
 OSSLINC=$(OSSLPATH)/include
 
 CC=gcc
 
 # Force 32 bit
-CFLAGS= -DUSEOPENSSL -g -I. -I$(OSSLINC) -Wall -m32
+CFLAGS= -DUSEOPENSSL -g -I. -I$(OSSLINC) -Wall #-m32
 OSSLLIB=$(OSSLPATH)/lib
 
 # 64 bit if default for compiler setup
@@ -25,6 +25,7 @@ OSSLLIB=$(OSSLPATH)/lib
 #LIBS=-L$(OSSLLIB) $(OSSLLIB)/libcrypto.a
 LIBS=-L$(OSSLLIB) $(OSSLLIB)/libcrypto.a
 all: chntpw chntpw.static cpnt reged reged.static
+dynamic-only: chntpw cpnt reged
 
 chntpw: chntpw.o ntreg.o edlib.o
 	$(CC) $(CFLAGS) -o chntpw chntpw.o ntreg.o edlib.o $(LIBS)
